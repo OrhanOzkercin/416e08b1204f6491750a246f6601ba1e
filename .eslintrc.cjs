@@ -14,6 +14,7 @@ module.exports = {
   },
   rules: {
     quotes: [2, 'single', { avoidEscape: true }],
+    'prettier/prettier': [0, 120, 2, { ignoreUrls: true }],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }
