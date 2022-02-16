@@ -1,16 +1,16 @@
-import { ref, type Ref } from 'vue'
+import { ref, type Ref, type UnwrapRef } from 'vue'
 
 const baseUrl = 'https://5f6d939160cf97001641b049.mockapi.io/tkn'
 
 interface ReturnType<T> {
   fetchData: () => Promise<void>
-  data: Ref<T | undefined>
+  data: Ref<UnwrapRef<T>>
   error: any
 }
 
 const useFetch = <T>(path: string, options?: any, cb?: any): ReturnType<T> => {
-  const error = ref()
-  const data = ref<T>()
+  const error = ref<Error>()
+  const data = ref<T>({} as T)
 
   const fetchData = async () => {
     try {
@@ -22,18 +22,18 @@ const useFetch = <T>(path: string, options?: any, cb?: any): ReturnType<T> => {
         },
         ...options
       })
-      const result = await res.json()
-      let smt
-      if (cb) {
-        console.log(cb)
 
-        console.log('result:', JSON.stringify(result))
-        smt = cb(result)
+      if (!res.ok) throw new Error(res.statusText)
+
+      let result = await res.json()
+      if (cb) {
+        result = cb(result)
       }
-      console.log('result:', smt)
-      data.value = smt
-    } catch (error: any) {
-      error.value = error
+      data.value = result
+    } catch (err: any) {
+      console.log('err:', err)
+      error.value = new Error(err.message)
+      console.log('error.value:', error.value)
     }
   }
   return { fetchData, data, error }
