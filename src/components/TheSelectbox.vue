@@ -3,6 +3,7 @@
     class="w-full cursor-pointer appearance-none rounded-md border-none bg-slate-500/20 px-5 py-2 text-slate-100 outline-none hover:bg-slate-500/60 disabled:cursor-no-drop"
     :name="name"
     :id="id"
+    :value="value"
   >
     <option value="" disabled selected hidden>{{ placeholder }}</option>
     <option class="bg-slate-900" v-for="option in options" :key="option.id" :value="option.id">
@@ -13,6 +14,7 @@
 
 <script setup lang="ts">
 interface Prop {
+  value?: string
   name?: string
   id?: string
   placeholder?: string
