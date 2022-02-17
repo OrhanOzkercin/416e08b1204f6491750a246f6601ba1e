@@ -1,4 +1,4 @@
-import useFetch from '../composables/useFetch'
+import { useFetch } from '../composables/useFetch'
 import { createStore } from 'vuex'
 import type State from './state.model'
 import type Hotel from '@/models/Hotel.model'
@@ -15,16 +15,16 @@ const store = createStore<State>({
     GET_CURRENT_STATUS(state) {
       return state.currentStepIndex
     },
-    SET_NEXT_STATUS(state) {
-      state.currentStepIndex++
+    SET_STATUS(state, status: 0 | 1 | 2) {
+      state.currentStepIndex = status
     },
     SET_SELECTED_HOTEL(state, hotel: Hotel) {
       state.selectedHotel = Object.assign(state.selectedHotel, hotel)
     }
   },
   actions: {
-    setNextStatus(state) {
-      state.commit('SET_NEXT_STATUS')
+    setStatus(state, status: 0 | 1 | 2) {
+      state.commit('SET_STATUS', status)
     },
 
     async getHotels(): Promise<Ref<{ id: string; hotel_name: string } | undefined>> {
