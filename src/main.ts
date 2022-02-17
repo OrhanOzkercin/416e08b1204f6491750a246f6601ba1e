@@ -1,3 +1,4 @@
+import VuePaycard from 'vue-paycard'
 import VueDatepickerUi from 'vue-datepicker-ui'
 import 'vue-datepicker-ui/lib/vuedatepickerui.css'
 
@@ -9,6 +10,6 @@ import store from './store'
 const app = createApp(App)
 // eslint-disable-next-line vue/multi-word-component-names
 app.component('Datepicker', VueDatepickerUi)
-
 app.use(store)
+app.use(VuePaycard)
 app.mount('#app')

@@ -1,21 +1,42 @@
 <template>
   <TheNavBar />
-  <main class="relative mx-auto mt-20 flex w-full flex-col items-center justify-center gap-10 lg:w-3/4">
+  <main class="relative mx-auto mt-16 flex w-full flex-col items-center justify-center gap-10 lg:w-3/4">
     <TheProgress />
-    <HotelSelection v-if="store.state.currentStepIndex === 0" @saveAndContinue="saveAndContinue" />
+    <KeepAlive>
+      <HotelSelectionPage v-if="store.state.currentStepIndex === 0" @saveAndContinue="saveAndContinue" />
+    </KeepAlive>
+    <KeepAlive>
+      <RoomSelectionPage v-if="store.state.currentStepIndex === 1" @saveAndContinue="saveAndContinue" />
+    </KeepAlive>
+    <PaymentPage v-if="store.state.currentStepIndex === 2" />
   </main>
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import TheNavBar from './components/TheNavBar.vue'
 import TheProgress from './components/TheProgress.vue'
+import { useLocalStorage } from './composables/useLocalStorage'
 import type State from './store/state.model'
-import HotelSelection from './views/HotelSelection.vue'
+import HotelSelectionPage from './views/HotelSelectionPage.vue'
+import RoomSelectionPage from './views/RoomSelectionPage.vue'
+import PaymentPage from './views/PaymentPage.vue'
 
-const store = useStore<State>()
+const store = ref(useStore<State>())
+const { localStorageValue: step } = useLocalStorage('step', 0)
 
-const saveAndContinue = () => store.dispatch('setNextStatus')
+onMounted(() => {
+  store.value.dispatch('setStatus', step.value)
+})
+
+const saveAndContinue = () => {
+  store.value.dispatch(
+    'setStatus',
+    store.value.state.currentStepIndex === 2 ? 0 : store.value.state.currentStepIndex + 1
+  )
+  step.value = store.value.state.currentStepIndex
+}
 </script>
 
 <style>

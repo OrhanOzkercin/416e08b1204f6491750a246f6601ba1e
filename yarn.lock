@@ -2142,6 +2142,13 @@ vue-eslint-parser@^8.0.0, vue-eslint-parser@^8.0.1:
     lodash "^4.17.21"
     semver "^7.3.5"
 
+vue-paycard@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/vue-paycard/-/vue-paycard-0.7.0.tgz#111e4f7f695e8920102f892f948078907e44c624"
+  integrity sha512-r/mk3QYPiUD0NKfn/Hz33z8fHg9Xxwlu+UfQcMZKvI7I87LPt9LxIiEw2GpLWTZW7Y3RiEwzLyS5EAa8o02Kvg==
+  dependencies:
+    vue "^2.6.14"
+
 vue-tsc@^0.31.1:
   version "0.31.4"
   resolved "https://registry.npmjs.org/vue-tsc/-/vue-tsc-0.31.4.tgz"
@@ -2149,6 +2156,11 @@ vue-tsc@^0.31.1:
   dependencies:
     "@volar/shared" "0.31.4"
     vscode-vue-languageservice "0.31.4"
+
+vue@^2.6.14:
+  version "2.6.14"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
+  integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
 
 vue@^3.2.29:
   version "3.2.31"
