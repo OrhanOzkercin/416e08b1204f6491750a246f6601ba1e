@@ -15,16 +15,16 @@ const store = createStore<State>({
     GET_CURRENT_STATUS(state) {
       return state.currentStepIndex
     },
-    SET_STATUS(state, statusIndex: 0 | 1 | 2) {
-      state.currentStepIndex = statusIndex
+    SET_NEXT_STATUS(state) {
+      state.currentStepIndex++
     },
     SET_SELECTED_HOTEL(state, hotel: Hotel) {
       state.selectedHotel = Object.assign(state.selectedHotel, hotel)
     }
   },
   actions: {
-    setNextStatus(state, payload: 0 | 1 | 2) {
-      state.commit('SET_STATUS', payload)
+    setNextStatus(state) {
+      state.commit('SET_NEXT_STATUS')
     },
 
     async getHotels(): Promise<Ref<{ id: string; hotel_name: string } | undefined>> {
@@ -37,7 +37,7 @@ const store = createStore<State>({
     async setSelectedHotel(state, id: string): Promise<void> {
       const { fetchData, data, error } = useFetch<Hotel[]>('/hotel-details')
       await fetchData()
-      if (error.value) throw new Error(error)
+      if (error.value) throw new Error(error.value.message)
       const targetHotel = data?.value?.find((hotel: Hotel) => hotel.id === id) as Hotel
 
       state.commit('SET_SELECTED_HOTEL', targetHotel)
