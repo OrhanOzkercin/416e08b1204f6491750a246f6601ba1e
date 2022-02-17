@@ -1,8 +1,10 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["datepicker.d.ts", "env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": ["vuepaycard.d.ts", "datepicker.d.ts", "env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
     "baseUrl": ".",
+    "target": "es5",
+    "lib": ["esnext", "dom"],
     "paths": {
       "@/*": ["./src/*"]
     }
