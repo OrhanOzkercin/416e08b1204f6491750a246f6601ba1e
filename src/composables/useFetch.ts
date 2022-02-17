@@ -8,13 +8,13 @@ interface ReturnType<T> {
   error: any
 }
 
-const useFetch = <T>(path: string, options?: any, cb?: any): ReturnType<T> => {
+export function useFetch<T>(path: string, query?: string, options?: any, cb?: any): ReturnType<T> {
   const error = ref<Error>()
   const data = ref<T>({} as T)
 
   const fetchData = async () => {
     try {
-      const res = await fetch(`${baseUrl}${path}`, {
+      const res = await fetch(`${baseUrl}${path}/${'?' + (query ?? '')}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -36,5 +36,3 @@ const useFetch = <T>(path: string, options?: any, cb?: any): ReturnType<T> => {
   }
   return { fetchData, data, error }
 }
-
-export default useFetch
