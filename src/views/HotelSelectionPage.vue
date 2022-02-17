@@ -3,7 +3,7 @@
     <TheToastr v-if="error" :message="error.message" @close="error = null" />
     <Suspense>
       <template #default>
-        <SelectHotel :hotelId="hotelId" />
+        <HotelSelect :hotelId="hotelId" />
       </template>
       <template #fallback>
         <div>
@@ -56,15 +56,16 @@
       </div>
     </div>
   </div>
-  <TheSaveAndContinueBtn :disabled="isButtonDisabled" @click="onSaveAndContinue" />
+  <TheSaveAndContinueBtn :disabled="isButtonDisabled" @save="onSaveAndContinue" />
 </template>
 
 <script setup lang="ts">
 import type State from '@/store/state.model'
+import type LocalStorage from '@/models/LocalStorage.model'
 import { computed, onErrorCaptured, onMounted, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import TheSelectbox from '../components/TheSelectbox.vue'
-import SelectHotel from '../components/SelectHotel.vue'
+import HotelSelect from '../components/HotelSelect.vue'
 import TheToastr from '../components/TheToastr.vue'
 import TheSaveAndContinueBtn from '../components/TheSaveAndContinueBtn.vue'
 import { useLocalStorage } from '@/composables/useLocalStorage'
@@ -72,8 +73,7 @@ import { useLocalStorage } from '@/composables/useLocalStorage'
 const store = useStore<State>()
 const emit = defineEmits(['saveAndContinue'])
 
-const { localStorageKey, localStorageValue } =
-  useLocalStorage<{ hotel_id: string; adult: number; child: number; start_date: Date; end_date: Date }>('userSelection')
+const { localStorageValue: userSelection, updateLocalStorageValue } = useLocalStorage<LocalStorage>('userSelection')
 
 const error = ref<Error | null>(null)
 const checkinDate = ref<Date>()
@@ -98,7 +98,7 @@ watch(checkinDate, () => {
   disabledCheckoutDate.value.to = checkinDate.value
 })
 
-const isButtonDisabled = computed(() => {
+const isButtonDisabled = computed((): boolean => {
   return (
     !checkinDate.value ||
     !checkoutDate.value ||
@@ -126,26 +126,27 @@ const getChildSelectOption = computed((): { id: string; name: number }[] => {
 
 const fillDataFromLocalStorage = async () => {
   try {
-    await store.dispatch('setSelectedHotel', localStorageValue.value?.hotel_id)
-    hotelId.value = localStorageValue.value?.hotel_id
-    adultCount.value = Number(localStorageValue.value?.adult)
-    childCount.value = Number(localStorageValue.value?.child)
-    checkinDate.value = localStorageValue.value?.start_date
-    checkoutDate.value = localStorageValue.value?.end_date
+    await store.dispatch('setSelectedHotel', userSelection.value?.hotel_id)
+    hotelId.value = userSelection.value?.hotel_id
+    adultCount.value = Number(userSelection.value?.adult)
+    childCount.value = Number(userSelection.value?.child)
+    checkinDate.value = userSelection.value?.start_date
+    checkoutDate.value = userSelection.value?.end_date
   } catch (err: any) {
     error.value = { name: 'Error', message: 'Hotel details can not fetched' }
   }
 }
 
 const onSaveAndContinue = () => {
-  const userSelection = {
+  const userChooses = {
     hotel_id: store.state.selectedHotel.id as string,
     start_date: checkinDate.value as Date,
     end_date: checkoutDate.value as Date,
     adult: adultCount.value as number,
     child: childCount.value as number
   }
-  localStorageValue.value = userSelection
+  updateLocalStorageValue()
+  userSelection.value = { ...userSelection.value, ...userChooses }
   emit('saveAndContinue')
 }
 </script>

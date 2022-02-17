@@ -1,11 +1,6 @@
 <template>
   <section>
-    <TheSelectbox
-      :value="hotelId"
-      placeholder="Select a hotel"
-      :options="getHotels"
-      @change="selectedHotelId = $event"
-    ></TheSelectbox>
+    <TheSelectbox :value="hotelId" placeholder="Select a hotel" :options="getHotels" @change="onChange"></TheSelectbox>
   </section>
 </template>
 
@@ -13,9 +8,12 @@
 import { useStore } from 'vuex'
 import TheSelectbox from './TheSelectbox.vue'
 import { computed, ref, watch } from 'vue'
+import type LocalStorage from '@/models/LocalStorage.model'
+import { useLocalStorage } from '@/composables/useLocalStorage'
 
-const store = useStore()
 defineProps<{ hotelId?: string }>()
+const store = useStore()
+const { localStorageValue: userSelection } = useLocalStorage<LocalStorage>('userSelection')
 
 let selectedHotelId = ref<string>('')
 let hotelIdsNames = ref<{ id: string; hotel_name: string }[]>([])
@@ -35,6 +33,17 @@ watch(selectedHotelId, async (id: string) => {
     throw new Error('Hotel details can not fetched')
   }
 })
+
+const onChange = (id: any) => {
+  const selectedHotelName = hotelIdsNames.value.find((hotel) => hotel.id === id)
+  if (selectedHotelName) {
+    if (userSelection.value) {
+      userSelection.value = { ...userSelection.value, hotel_name: selectedHotelName.hotel_name }
+    }
+    userSelection.value = { hotel_name: selectedHotelName.hotel_name }
+  }
+  selectedHotelId.value = id
+}
 </script>
 
 <style scoped></style>
