@@ -1,10 +1,10 @@
 <template>
-  <section class="mx-5 my-8">
+  <section>
     <TheSelectbox
+      :value="hotelId"
       placeholder="Select a hotel"
       :options="getHotels"
-      value=""
-      @change="selectHotel($event)"
+      @change="selectedHotelId = $event"
     ></TheSelectbox>
   </section>
 </template>
@@ -15,25 +15,26 @@ import TheSelectbox from './TheSelectbox.vue'
 import { computed, ref, watch } from 'vue'
 
 const store = useStore()
+defineProps<{ hotelId?: string }>()
 
 let selectedHotelId = ref<string>('')
 let hotelIdsNames = ref<{ id: string; hotel_name: string }[]>([])
 
 try {
   hotelIdsNames = await store.dispatch('getHotels')
-} catch (error: any) {
-  throw new Error(error.message)
+} catch (err: any) {
+  throw new Error(err.message)
 }
 
 const getHotels = computed(() => hotelIdsNames.value.map((hotel) => ({ id: hotel.id, name: hotel.hotel_name })))
 
-watch(selectedHotelId, (id: string) => {
-  store.dispatch('setSelectedHotel', id)
+watch(selectedHotelId, async (id: string) => {
+  try {
+    await store.dispatch('setSelectedHotel', id)
+  } catch (err: any) {
+    throw new Error('Hotel details can not fetched')
+  }
 })
-
-const selectHotel = (e: any) => {
-  selectedHotelId.value = e.target.value
-}
 </script>
 
 <style scoped></style>
