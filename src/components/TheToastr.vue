@@ -2,24 +2,23 @@
   <Teleport to="body">
     <div
       id="toast-default"
-      class="absolute left-0 bottom-2 flex w-full max-w-xs items-center rounded-lg bg-white p-4 text-gray-500 shadow transition dark:bg-gray-800 dark:text-gray-400"
+      class="absolute left-0 bottom-2 flex w-full max-w-xs items-center rounded-lg bg-gray-800 p-4 text-slate-300 transition"
       role="alert"
     >
-      <div
-        class="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-500 dark:bg-blue-800 dark:text-blue-200"
-      >
-        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <div class="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="768" height="768" viewBox="0 0 768 768">
+          <title />
+          <g id="icomoon-ignore"></g>
           <path
-            fill-rule="evenodd"
-            d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
-            clip-rule="evenodd"
-          ></path>
+            fill="#b91c1c"
+            d="M384 640.5q105 0 180.75-75.75t75.75-180.75-75.75-180.75-180.75-75.75-180.75 75.75-75.75 180.75 75.75 180.75 180.75 75.75zM384 64.5q132 0 225.75 93.75t93.75 225.75-93.75 225.75-225.75 93.75-225.75-93.75-93.75-225.75 93.75-225.75 225.75-93.75zM352.5 223.5h63v192h-63v-192zM352.5 480h63v64.5h-63v-64.5z"
+          />
         </svg>
       </div>
       <div class="ml-3 text-sm font-normal">{{ message }}</div>
       <button
         type="button"
-        class="-mx-1.5 -my-1.5 ml-auto inline-flex h-8 w-8 rounded-lg bg-white p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-300 dark:bg-gray-800 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-white"
+        class="-mx-2.5 -my-2.5 ml-auto inline-flex h-8 w-8 rounded-lg text-slate-300 focus:ring-2"
         data-collapse-toggle="toast-default"
         aria-label="Close"
         @click="close"
@@ -45,7 +44,7 @@ const emit = defineEmits(['close'])
 onMounted(() => {
   setTimeout(() => {
     close()
-  }, props.timer || 2500)
+  }, props.timer || 2000)
 })
 
 const close = () => {
