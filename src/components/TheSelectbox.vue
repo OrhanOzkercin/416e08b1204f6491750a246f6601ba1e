@@ -6,10 +6,12 @@
     :value="props.value || undefined"
     @change="onChange($event)"
   >
-    <option value="" disabled selected hidden>{{ placeholder }}</option>
-    <option class="bg-slate-900" v-for="option in options" :key="option.id" :value="option.id">
-      {{ option.name }}
-    </option>
+    <slot>
+      <option value="" disabled selected hidden>{{ placeholder }}</option>
+      <option class="bg-slate-900" v-for="option in options" :key="option.id" :value="option.id">
+        {{ option.name }}
+      </option>
+    </slot>
   </select>
 </template>
 
