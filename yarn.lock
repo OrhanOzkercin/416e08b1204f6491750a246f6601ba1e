@@ -542,6 +542,11 @@ browserslist@^4.19.1:
     node-releases "^2.0.1"
     picocolors "^1.0.0"
 
+calendar-data-generate@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/calendar-data-generate/-/calendar-data-generate-1.0.3.tgz#c54be48de84aca72452e6eab81d6dd2b7fdd452f"
+  integrity sha512-B5Gzp1Z+KASQX+LdUNb5fjFvv2ONhLet4vGV6wJbvw0fFSPPW/vbundamN6vJ6RZEghiR8n09vsKLMX+f5sFpQ==
+
 call-bind@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/call-bind/-/call-bind-1.0.2.tgz"
@@ -2116,6 +2121,13 @@ vscode-vue-languageservice@0.31.4:
     vscode-languageserver-textdocument "^1.0.3"
     vscode-pug-languageservice "0.31.4"
     vscode-typescript-languageservice "0.31.4"
+
+vue-datepicker-ui@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/vue-datepicker-ui/-/vue-datepicker-ui-3.1.1.tgz#af0eade76bb12a8147a3d0d05ed9592cfe56f1ff"
+  integrity sha512-vUQcNMrv7X9FF9GIY2xcnp1mXNLkZ7VvmZ0B3C377ztl5Rnhr6rTNv1G6/2LuM/tHHLFieMNvNBVt87E9DhsUA==
+  dependencies:
+    calendar-data-generate "^1.0.3"
 
 vue-eslint-parser@^8.0.0, vue-eslint-parser@^8.0.1:
   version "8.2.0"
