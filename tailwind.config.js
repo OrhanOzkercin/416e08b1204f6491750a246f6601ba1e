@@ -9,7 +9,7 @@ module.exports = {
       colors: {
         primary: colors.yellow[500],
         secondary: colors.cyan[500],
-        'text-color': colors.slate[200]
+        'text-color': colors.slate[400]
       }
     }
   },
