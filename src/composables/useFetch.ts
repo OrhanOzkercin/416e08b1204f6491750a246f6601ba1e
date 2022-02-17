@@ -31,9 +31,7 @@ const useFetch = <T>(path: string, options?: any, cb?: any): ReturnType<T> => {
       }
       data.value = result
     } catch (err: any) {
-      console.log('err:', err)
       error.value = new Error(err.message)
-      console.log('error.value:', error.value)
     }
   }
   return { fetchData, data, error }
