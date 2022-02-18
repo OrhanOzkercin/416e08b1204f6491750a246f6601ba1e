@@ -9,14 +9,11 @@ export async function useCoupon(couponCode: string) {
   if (error.value) throw new Error(error.value.message)
   if (data.value) {
     const discount = data.value.find((coupon) => {
-      console.log(1)
-
       if (coupon.code !== couponCode.toUpperCase()) {
         return false
       }
       return dateDifference(new Date(), new Date(coupon.expiration_at)) > 0
     })
-    console.log('discount:', discount)
     if (!discount) {
       error.value = new Error('Invalid Coupon')
     } else {
