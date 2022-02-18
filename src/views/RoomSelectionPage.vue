@@ -48,7 +48,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useLocalStorage } from '@/composables/useLocalStorage'
 import type RoomType from '@/models/RoomType.model'
 import type RoomScenic from '@/models/RoomScenic.model'
-import TheSaveAndContinueBtn from '../components/TheSaveAndContinueBtn.vue'
+import TheSaveAndContinueBtn from '../components/TheSaveAndBackBtn.vue'
 
 const emit = defineEmits(['saveAndContinue'])
 

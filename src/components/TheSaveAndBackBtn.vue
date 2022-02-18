@@ -4,7 +4,7 @@
       v-if="isBackActive"
       @click="emit('back')"
       type="button"
-      class="btn lg:text-md my-auto mx-auto mr-5 block w-full px-10 py-4 text-xs lg:w-1/2"
+      class="btn btn-primary lg:text-md my-auto mx-auto mr-5 block w-full px-10 py-4 text-xs lg:w-1/2"
     >
       <slot name="back"> Back</slot>
     </button>
@@ -12,7 +12,7 @@
       :disabled="disabled"
       @click="emit('save')"
       type="button"
-      class="btn lg:text-md my-auto mx-auto block w-full px-10 py-4 text-xs lg:w-1/2"
+      class="btn btn-primary lg:text-md my-auto mx-auto block w-full px-10 py-4 text-xs lg:w-1/2"
     >
       <slot> Save and Continue </slot>
     </button>

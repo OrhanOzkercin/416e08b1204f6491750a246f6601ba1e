@@ -68,7 +68,7 @@ import { useStore } from 'vuex'
 import TheSelectbox from '../components/TheSelectbox.vue'
 import HotelSelect from '../components/HotelSelect.vue'
 import TheToastr from '../components/TheToastr.vue'
-import TheSaveAndContinueBtn from '../components/TheSaveAndContinueBtn.vue'
+import TheSaveAndContinueBtn from '../components/TheSaveAndBackBtn.vue'
 import { useLocalStorage } from '@/composables/useLocalStorage'
 
 const store = useStore<State>()
