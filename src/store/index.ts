@@ -15,6 +15,10 @@ const store = createStore<State>({
     GET_CURRENT_STATUS(state) {
       return state.currentStepIndex
     },
+    CLEAR_STATUS(state) {
+      state.currentStepIndex = 0
+      state.selectedHotel = {} as Hotel
+    },
     SET_STATUS(state, status: 0 | 1 | 2) {
       state.currentStepIndex = status
     },
@@ -23,7 +27,10 @@ const store = createStore<State>({
     }
   },
   actions: {
-    setStatus(state, status: 0 | 1 | 2) {
+    clearStatus(state) {
+      state.commit('CLEAR_STATUS')
+    },
+    setStatus(state, status: 0 | 1 | 2 | 3) {
       state.commit('SET_STATUS', status)
     },
 
