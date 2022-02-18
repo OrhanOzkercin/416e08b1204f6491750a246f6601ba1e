@@ -2,11 +2,11 @@
   <Teleport to="body">
     <div
       id="toast-default"
-      class="absolute left-0 bottom-2 flex w-full max-w-xs items-center rounded-lg bg-gray-800 p-4 text-slate-300 transition"
+      class="absolute left-0 bottom-6 flex w-full max-w-xs items-center rounded-lg bg-gray-800 p-4 text-slate-300 transition"
       role="alert"
     >
       <div class="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="768" height="768" viewBox="0 0 768 768">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="48" height="48" viewBox="0 0 768 768">
           <title />
           <g id="icomoon-ignore"></g>
           <path
@@ -44,7 +44,7 @@ const emit = defineEmits(['close'])
 onMounted(() => {
   setTimeout(() => {
     close()
-  }, props.timer || 2000)
+  }, props.timer || 20000)
 })
 
 const close = () => {
