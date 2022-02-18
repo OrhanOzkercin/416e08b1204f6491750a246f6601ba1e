@@ -53,6 +53,7 @@ withDefaults(defineProps<{ isApplyCouponActive: boolean }>(), {
 
 const onNewReservation = () => {
   store.dispatch('clearStatus')
+  window.localStorage.removeItem('reservationId')
   window.localStorage.removeItem('userSelection')
   window.localStorage.removeItem('step')
   window.location.reload()
