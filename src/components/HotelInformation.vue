@@ -5,13 +5,13 @@
     </h2>
 
     <div class="col-span-1">
-      <p class="text-slate-600">
-        <span class="font-semibold text-slate-500">Adult: </span> {{ userSelection?.adult }} &nbsp;-&nbsp;
-        <span class="font-semibold text-slate-500">Child:</span>
+      <p class="text-slate-300">
+        <span class="font-semibold">Adult: </span> &nbsp;{{ userSelection?.adult }} &nbsp;-&nbsp;
+        <span class="font-semibold">Child:</span>&nbsp;
         {{ userSelection?.child || 0 }}
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="font-semibold text-slate-500">Checkin:</span> {{ checkin }} &nbsp;-&nbsp;
-        <span class="font-semibold text-slate-500">Checkout:</span>
+        <span class="font-semibold">Checkin:</span> &nbsp;{{ checkin }} &nbsp;-&nbsp;
+        <span class="font-semibold">Checkout:</span>
         {{ checkout }}
       </p>
     </div>
