@@ -1,11 +1,5 @@
 <template>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    version="1.1"
-    :width="size"
-    :height="size"
-    viewBox="0 0 768 768"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" :width="size" :height="size" viewBox="0 0 768 768">
     <title />
     <g id="icomoon-ignore"></g>
     <path
@@ -18,6 +12,6 @@
 <script setup lang="ts">
 withDefaults(defineProps<{ size?: number; fillColor?: string }>(), {
   size: 32,
-  fillColor: '#eab308'
+  fillColor: ''
 })
 </script>
