@@ -5,7 +5,7 @@
     :input-fields="inputFields"
     :has-random-backgrounds="false"
   />
-  <div class="mt-10 flex w-full flex-col items-start items-center justify-between gap-3 pr-5">
+  <div class="mt-10 flex w-full flex-col items-center justify-between gap-3 pr-5">
     <div class="flex w-full items-center justify-between">
       <label class="font-semibold" for="v-card-name">Card Holder</label>
       <input
@@ -92,17 +92,18 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 
+const prop = defineProps(['values'])
 const emit = defineEmits(['input-card-number', 'input-card-name', 'input-card-cvv', 'valueChane'])
 
 const cardNumberMaxLength = ref<number>(19)
 const minCardYear = ref<number>(new Date().getFullYear())
 
 const valueFields = ref({
-  cardName: '',
-  cardNumber: '',
-  cardMonth: null,
-  cardYear: null,
-  cardCvv: null
+  cardName: (prop.values.cardName as string) || '',
+  cardNumber: (prop.values.cardNumber as string) || '',
+  cardMonth: (prop.values.cardMonth as string) || '',
+  cardYear: (prop.values.cardYear as string) || '',
+  cardCvv: (prop.values.cardCvv as string) || ''
 })
 const inputFields = ref({
   cardNumber: 'v-card-number',
@@ -129,13 +130,13 @@ watch(
 )
 
 const minCardMonth = computed(() => {
-  if (valueFields.value.cardYear === minCardYear.value) return new Date().getMonth() + 1
+  if (Number(valueFields.value.cardYear) === minCardYear.value) return new Date().getMonth() + 1
   return 1
 })
 
 const changeCvv = (e: any) => {
   valueFields.value.cardCvv = e.target.value
-  emit('input-card-cvv', valueFields.value.cardCvv)
+  emit('input-card-cvv', Number(valueFields.value.cardCvv))
 }
 
 const changeName = (e: any) => {
