@@ -24,7 +24,7 @@
         :title="roomScenic.title"
         :image="roomScenic.photo"
       >
-        <p class="text-md mt-2">Price Rate: {{ moneyFormatter(roomScenic.price_rate) }}</p>
+        <p class="text-md mt-2">Price Rate: %{{ roomScenic.price_rate }}</p>
       </RoomCard>
     </div>
   </div>
