@@ -62,6 +62,7 @@
 <script setup lang="ts">
 import type State from '@/store/state.model'
 import type LocalStorage from '@/models/LocalStorage.model'
+import { dateDifference, formatDateYYYYMMDD } from '@/utils'
 import { computed, onErrorCaptured, onMounted, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import TheSelectbox from '../components/TheSelectbox.vue'
@@ -76,9 +77,9 @@ const emit = defineEmits(['saveAndContinue'])
 const { localStorageValue: userSelection, updateLocalStorageValue } = useLocalStorage<LocalStorage>('userSelection')
 
 const error = ref<Error | null>(null)
-const checkinDate = ref<Date>()
+const checkinDate = ref<Date | string>()
 const disabledCheckinDate = ref<{ to: Date; from?: Date }>({ to: new Date() })
-const checkoutDate = ref<Date>()
+const checkoutDate = ref<Date | string>()
 const disabledCheckoutDate = ref<{ to: Date; from?: Date }>({ to: new Date() })
 const adultCount = ref<number>()
 const childCount = ref<number>()
@@ -93,9 +94,9 @@ onMounted(async () => {
 })
 
 watch(checkinDate, () => {
-  if (!checkinDate.value || !checkoutDate.value) return
-  if (checkinDate.value > checkoutDate.value) checkoutDate.value = checkinDate.value
-  disabledCheckoutDate.value.to = checkinDate.value
+  if (dateDifference(checkoutDate.value || new Date('01/01/1970'), checkinDate.value) > 0)
+    checkoutDate.value = checkinDate.value
+  disabledCheckoutDate.value.to = checkinDate.value as Date
 })
 
 const isButtonDisabled = computed((): boolean => {
@@ -118,18 +119,18 @@ const getAdultSelectOption = computed((): { id: string; name: number }[] => {
 
 const getChildSelectOption = computed((): { id: string; name: number }[] => {
   if (!store.state.selectedHotel.child_status) return []
-  const adultSelectOptions = Array.from(Array(6).keys()).map((elem) => {
+  const childSelectOptions = Array.from(Array(6).keys()).map((elem) => {
     return { id: elem.toString(), name: elem }
   })
-  return adultSelectOptions
+  return childSelectOptions
 })
 
 const fillDataFromLocalStorage = async () => {
   try {
     await store.dispatch('setSelectedHotel', userSelection.value?.hotel_id)
     hotelId.value = userSelection.value?.hotel_id
-    adultCount.value = Number(userSelection.value?.adult)
-    childCount.value = Number(userSelection.value?.child)
+    adultCount.value = userSelection.value?.adult
+    childCount.value = userSelection.value?.child
     checkinDate.value = userSelection.value?.start_date
     checkoutDate.value = userSelection.value?.end_date
   } catch (err: any) {
@@ -140,10 +141,10 @@ const fillDataFromLocalStorage = async () => {
 const onSaveAndContinue = () => {
   const userChooses = {
     hotel_id: store.state.selectedHotel.id as string,
-    start_date: checkinDate.value as Date,
-    end_date: checkoutDate.value as Date,
-    adult: adultCount.value as number,
-    child: childCount.value as number
+    start_date: formatDateYYYYMMDD(checkinDate.value as Date),
+    end_date: formatDateYYYYMMDD(checkoutDate.value as Date),
+    adult: adultCount.value,
+    child: childCount.value
   }
   updateLocalStorageValue()
   userSelection.value = { ...userSelection.value, ...userChooses }
