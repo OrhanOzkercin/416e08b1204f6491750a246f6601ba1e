@@ -44,7 +44,7 @@ const emit = defineEmits(['close'])
 onMounted(() => {
   setTimeout(() => {
     close()
-  }, props.timer || 20000)
+  }, props.timer || 5000)
 })
 
 const close = () => {
