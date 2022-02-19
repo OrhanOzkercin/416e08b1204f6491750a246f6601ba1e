@@ -7,6 +7,10 @@ I try to use new features as much as possible. Used experimental `<Suspense>` ap
 
 I used composable methods for several purposes. I shared logic with those methods.
 
+## Installation 
+
+` yarn && yarn dev `
+
 ### Stack
 - Vue 3
 - Tailwind 3
